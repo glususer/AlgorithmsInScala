@@ -109,4 +109,49 @@ object DynamicProgramming {
     helper(a,b,List()).reverse mkString("")
   }
 
+  /**
+    * Find length of longest (strictly) increasing subsequence
+    * O(n log n)
+    *
+    * @param l input sequence
+    * @return return longest increasing subsequence of a
+    */
+  def longestIncreasingSubsequence(l:Vector[Int]):Int= {
+    var LIS = new Array[Int](l.length)
+    LIS(0)=1
+    for (i<-1 until l.length){
+      var max = 0
+      for(j<-0 until  i){
+        if(l(j)<l(i) && max < LIS(j)) max = LIS(j)
+      }
+      if(max ==0) LIS(i)=1
+      else LIS(i)=(1+max)
+    }
+    LIS.max
+  }
+
+  /**
+    * Find the maximum sum of a contiguous sub array
+    * O(n) Kadane's algorithm
+    *
+    * @param s
+    * @return the maximum contiguous sub array sum
+    */
+  def maxSubArraySum(s: Seq[Int]):Int={
+    s.scanLeft(0)(_+_ max 0).max
+  }
+
+  /**
+    * Given an integer array with all positive numbers
+    * and no duplicates, find the number of possible combinations that
+    * add up to a positive integer target.
+    *
+    * @param l
+    * @return no of ways in which this sum can be achieved
+    */
+  def combinationSum(l:Array[Int]):Int={
+    ???
+  }
+
+
 }
