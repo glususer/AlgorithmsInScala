@@ -14,7 +14,9 @@ class DynamicProgrammingSuite extends FunSuite {
   for (e<-l)
     println(e)*/
 
-  println(DynamicProgramming.longestCommonSubsequence("abc".toList,"ahbgdc".toList))
+ // println(DynamicProgramming.longestCommonSubsequence("abc".toList,"ahbgdc".toList))
   //DynamicProgramming.longestIncreasingSubsequence(Vector(2,5,3,7,11,8,7,9))
+
+  println(DynamicProgramming.canCross(List(0,1,2,3,4,8,9,11)))
 
 }

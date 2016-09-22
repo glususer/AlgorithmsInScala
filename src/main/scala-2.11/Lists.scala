@@ -311,8 +311,8 @@ object Lists {
     }.length
   }
 
-  def primeFactors(n: Int): List[Int] = {
-    def helper(k: Int, m: Int, l: List[Int]): List[Int] = {
+  def primeFactors(n: Long): List[Int] = {
+    def helper(k: Int, m: Long, l: List[Int]): List[Int] = {
       (k, m) match {
         case (k, 0) => l
         case (k, 1) => l
@@ -459,5 +459,26 @@ object Lists {
   def rotateK(l:List[Int],k:Int):List[Int]={
     val m = l.splitAt(k)
     m._2:::m._1
+  }
+
+  def add2Lists(l:List[Int],k:List[Int]):Unit={
+    def helper(l:List[Int],k:List[Int],sum:Int,carry:Int):Int={
+      (l,k) match{
+        case(Nil,Nil)=>0
+        case(l,Nil)=> l.mkString(" ").toInt
+        case(Nil,k)=>l.mkString(" ").toInt
+        //case ()
+    //    case(x::xs,y::ys)=>helper(xs,ys,x+y%10,if((x+y)<10 0 else 1))
+      }
+    }
+  }
+
+  /**
+    *      Given a linked list with alternating triplets of alphabets
+    *      and numbers, return two linked lists, one with alphabets only,
+    * other with numbers only, in original order.
+    */
+  def twoLists(l:List[String]):(List[String],List[String])={
+    l.partition(_.forall(_.isDigit))
   }
 }
