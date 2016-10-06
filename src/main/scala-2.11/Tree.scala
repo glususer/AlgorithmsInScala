@@ -309,7 +309,7 @@
           case (_, List()) => End
           case (x :: Nil, y :: Nil) => new Node(x, End, End)
           case (x :: xs, y :: ys) => {
-            var (leftIn, rightIn) = in.span(_ != y)
+            val (leftIn, rightIn) = in.span(_ != y)
             new Node(y, helper(leftIn, ys.take(leftIn.size), tree), helper(rightIn.tail, ys.drop(leftIn.size), tree))
           }
         }
@@ -326,11 +326,86 @@
       def helper[T](tree: Tree[T], k: Int, l: List[T]): List[T] = {
         (tree, k) match {
           case (tree, k) => {
-            if(k==depth) l
+            if(k > depth) l
             else helper(tree,k+1,l:::atLevel(tree,k))
           }
         }
       }
       helper(tree, 1, List())
+    }
+
+    def binaryTreePaths[T](tree:Tree[T]):List[List[T]]={
+      def helper[T](tree:Tree[T],curPath:List[T],paths:List[List[T]]):List[List[T]]={
+        tree match {
+          case (End)=>paths
+          case (tree: Node[T])=>{
+            if(tree.left == End && tree.right==End)
+              (tree.value::curPath).reverse::paths
+            else
+              helper(tree.left,tree.value::curPath,paths) ::: helper(tree.right,tree.value::curPath,paths)
+          }
+        }
+      }
+      helper(tree,List(),List())
+    }
+
+    def minDepth[T](tree:Tree[T]):Int={
+      tree match {
+        case (End) => 0
+        case (tree: Node[T]) => {
+          if (tree.left == End && tree.right == End) 1
+          else (math.min(heightOfTree(tree.left), heightOfTree(tree.right)) + 1)
+        }
+      }
+    }
+
+    def arrayToHeightBalTree[T](arr:Array[T]):Tree[T]={
+      def helper[T](array:Array[T]):Tree[T]={
+        (array.length) match{
+          case (1)=>new Node(array(0),End,End)
+          case (0)=> End
+          case(k)=>{
+            val mid = array.length/2
+            (new Node(array(mid), helper(array.take(mid)), helper(array.drop(mid+1))))
+          }
+        }
+      }
+      helper(arr)
+    }
+
+    def rightViewOfBinaryTree[T](tree:Tree[T]):List[T]={
+      val depth = heightOfTree(tree)
+      def helper[T](tree:Tree[T],l:List[T],n:Int):List[T]={
+        (tree,n) match{
+          case (tree,n)=>{
+            if(n > depth) l
+            else helper(tree,atLevel(tree,n).last::l,n+1)
+          }
+        }
+      }
+      helper(tree,List(),1).reverse
+    }
+
+    def LCA[T](tree:Tree[T],node1:Tree[T],node2:Tree[T]):String={
+      val inorder = inorderTraversal(tree)
+      val preorder = preorderTraversal(tree)
+      val leftIdx = if (inorder.indexOf(node1) < inorder.indexOf(node2)) inorder.indexOf(node1) else inorder.indexOf(node2)
+      val rightIdx = if (inorder.indexOf(node1) > inorder.indexOf(node2)) inorder.indexOf(node1)  else inorder.indexOf(node2)
+      val inorderNodes = inorder.take(rightIdx+1).drop(leftIdx)
+      val preorderNodes = preorder.take(leftIdx)
+      val lca = inorderNodes.intersect(preorderNodes).mkString("")
+      if (lca.isEmpty) inorder(rightIdx).toString() else lca.mkString("")
+    }
+
+    def invertBTree[T](tree:Tree[T]):Tree[T]={
+      def helper[T](left:Tree[T],right:Tree[T],tree:Tree[T]):Tree[T]={
+        (left,right) match{
+          case (End,End)=>tree
+          case (left:Node[T],right:Node[T])=>{
+            ???
+          }
+        }
+      }
+        ???
     }
   }
