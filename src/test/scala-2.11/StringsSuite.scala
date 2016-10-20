@@ -27,6 +27,6 @@ class StringsSuite extends FunSuite {
     assert(Strings.palindromePairs(Array(""," s ")) === List((0,1), (1,0)))
   }
 
-  println(Strings.interLeavings("ABF","CD").mkString(" "))
+  println(Strings.interLeavings("AB","C").mkString(" "))
 
 }

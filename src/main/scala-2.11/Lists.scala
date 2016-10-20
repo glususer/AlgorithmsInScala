@@ -1,5 +1,59 @@
 import scala.collection.immutable.IndexedSeq
+import scala.collection.mutable
 
+
+/*sealed abstract class DoubleLinkedList[+T] {
+  def head:T
+  def tail:DoubleLinkedList[T]
+  def isEmpty[T]:Boolean
+  def length[T]:Int
+  def last[T]:T
+}
+
+case class Node[+T](value: T, prev: DoubleLinkedList[T], next: DoubleLinkedList[T]) extends DoubleLinkedList[T] {
+
+  override def toString =  prev.toString+"<-" +value.toString + "-> " + next.toString
+
+  def +=[T](elem:T):DoubleLinkedList[T]={
+    ???
+  }
+
+  override def head: T = head
+
+  override def tail: DoubleLinkedList[T] = tail
+
+  override def isEmpty[T]: Boolean = {
+    false
+  }
+
+  override def length[T]: Int = {
+    if (isEmpty) 0 else (1+tail.length)
+  }
+
+
+  def ::[T](elem: T): DoubleLinkedList[T] = ???
+
+  override def last[T]: T = {
+    ???
+  }
+}
+
+case object End extends DoubleLinkedList[Nothing] {
+  override def head: Nothing = throw new NoSuchElementException("End.head")
+
+  override def tail: DoubleLinkedList[Nothing] = throw new NoSuchElementException("End.tail")
+
+  override def isEmpty[T]: Boolean = true
+
+  override def length[T]: Int = 0
+
+  override def last[T]: T = throw new NoSuchElementException("End.Last")
+}
+
+object DoubleLinkedList{
+  def apply[T](elem:T*):DoubleLinkedList[T]={
+???  }
+}*/
 
 object Lists {
   /**
@@ -480,5 +534,9 @@ object Lists {
     */
   def twoLists(l:List[String]):(List[String],List[String])={
     l.partition(_.forall(_.isDigit))
+  }
+
+  def bstToDll [T](tree:Tree[T])={
+    ???
   }
 }

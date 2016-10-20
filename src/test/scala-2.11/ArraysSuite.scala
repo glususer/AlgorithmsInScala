@@ -22,6 +22,10 @@ class ArraysSuite extends FunSuite {
 
  // println(Arrays.minSubArray(Array(2,3,1,2,4,3),7).mkString(" "))
 //  println(Arrays.minInSortedArray(Array(2,3,4,5,6,8,1)))
-  val arr = Array(Array(1,2),Array(4,3))
-  println(Arrays.printSpiralMatrix(arr))
+//  val arr = Array(Array(1,2),Array(4,3))
+ // println(Arrays.printSpiralMatrix(arr))
+
+  val x = Arrays.permutations(List(1,2))
+  for(ele<-x)
+    println(ele)
 }

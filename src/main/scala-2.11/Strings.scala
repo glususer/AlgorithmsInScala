@@ -72,31 +72,17 @@ object Strings {
   }
 
 
-  def interLeavings (s:String,t:String):List[String]={
-    def helper(k:String,m:String,l:List[String]):List[String]= {
-      (k.length, m.length) match {
-        case (0, 0) => List()
-        case(0,1)=>m::l
-        case(1,0)=>k::l
-        case(1,1)=>(k.concat(m))::l
-        case(2,1)=>{
-          val(first,second)=s.splitAt(1)
-          k+m::m+k::first+t+second::l
-        }
-        case (1,2)=>  {
-          val(first,second)=m.splitAt(1)
-          m+k::k+m::first+k+second::l
-        }
-        case(_,_)=> {
-          {for {
-            i <- 0 until k.length
-            j<-0 until m.length
-            x=helper(k.drop(i + 1), m, l).map(k.charAt(i) + _)
-            y=helper(m.drop(j + 1), k, l).map(m.charAt(j) + _)
-          } yield helper(k.drop(i + 1), m, l).map(k.charAt(i) + _) ::: helper(m.drop(j + 1), k, l).map(m.charAt(j) + _)}.flatten.toList
+  def interLeavings (s:String,t:String):List[String]= {
+    def helper(k: String, m: String, l: String, klen: Int, mlen: Int, lList: List[String]): List[String] = {
+      (klen, mlen) match {
+        case (0, 0) => l :: lList
+        case(0,_)=>  helper(k, m.drop(1), l + m(0), klen, mlen - 1, lList)
+        case(_,0)=>  helper(k.drop(1), m, l + k(0), klen - 1, mlen, lList)
+        case (_, _) =>{
+          helper(k.drop(1), m, l + k(0), klen - 1, mlen, lList):::helper(k, m.drop(1), l + m(0), klen, mlen - 1, lList):::lList
         }
       }
     }
-    helper(s,t,List())
+    helper(s, t, "", s.length, t.length, List())
   }
 }
