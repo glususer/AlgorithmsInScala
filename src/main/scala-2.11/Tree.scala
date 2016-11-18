@@ -6,6 +6,8 @@
     def toStringFromTree: String
 
     def toDotString:String
+
+    def isGreaterThan[U >: T <% Ordered[U]](x: U,y:U): Boolean
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -25,6 +27,8 @@
       if(left == End && right == End) value.toString+"."+"."
       else value+left.toStringFromTree+right.toStringFromTree
     }
+
+    override def isGreaterThan[U >: T <% Ordered[U]](x: U,y:U): Boolean = if (x < y) false else true
   }
 
   case class PositionedNode[+T](value: T,left: Tree[T], right: Tree[T], x: Int, y: Int) extends Tree[T] {
@@ -44,6 +48,7 @@
       else value+left.toStringFromTree+right.toStringFromTree
     }
 
+    override def isGreaterThan[U >: T <% Ordered[U]](x: U,y:U): Boolean = if (x < y) false else true
   }
 
   case object End extends Tree[Nothing] {
@@ -54,6 +59,8 @@
     override def toStringFromTree: String = ""
 
     override def toDotString: String = ""
+
+    override def isGreaterThan[U <% Ordered[U]](x: U,y:U): Boolean = false
   }
 
   object Node {
@@ -237,13 +244,13 @@
       }
     }
 
-    def leafList[T](tree: Tree[T]): List[T] = {
-      def helper(tree: Tree[T], l: List[T]): List[T] = {
+    def leafList[T](tree: Tree[T]): List[Node[T]] = {
+      def helper(tree: Tree[T], l: List[Node[T]]): List[Node[T]] = {
         tree match {
           case (End) => l
           case (tree: Node[T]) => {
             if (tree.left == End && tree.right == End)
-              tree.value :: l
+              tree :: l
             else {
               helper(tree.left, l) ::: helper(tree.right, l)
             }
@@ -387,14 +394,19 @@
     }
 
     def LCA[T](tree:Tree[T],node1:Tree[T],node2:Tree[T]):String={
-      val inorder = inorderTraversal(tree)
+     /* val inorder = inorderTraversal(tree)
       val preorder = preorderTraversal(tree)
       val leftIdx = if (inorder.indexOf(node1) < inorder.indexOf(node2)) inorder.indexOf(node1) else inorder.indexOf(node2)
       val rightIdx = if (inorder.indexOf(node1) > inorder.indexOf(node2)) inorder.indexOf(node1)  else inorder.indexOf(node2)
       val inorderNodes = inorder.take(rightIdx+1).drop(leftIdx)
       val preorderNodes = preorder.take(leftIdx)
       val lca = inorderNodes.intersect(preorderNodes).mkString("")
-      if (lca.isEmpty) inorder(rightIdx).toString() else lca.mkString("")
+      if (lca.isEmpty) inorder(rightIdx).toString() else lca.mkString("")*/
+
+      val path1 = rootToLeafPath(tree,node1)
+      val path2 = rootToLeafPath(tree,node2)
+      val intersect = path1.intersect(path2)
+???
     }
 
     def invertBTree[T](tree:Tree[T]):Tree[T]={
@@ -407,5 +419,35 @@
         }
       }
         ???
+    }
+
+    def rootToLeafPath[T](tree: Tree[T], node:Tree[T]):List[T] = {
+      def helper(tree:Tree[T],node:Tree[T],l:List[T]):List[T]={
+        (tree,node) match{
+          case (tempNode:Node[T],node:Node[T])=>{
+            if(tempNode.value==node.value) tempNode.value::l
+            else {
+              helper(tempNode.left,node,tempNode.value::l)
+              helper(tempNode.right,node,tempNode.value::l)
+            }
+          }
+          case (End,node:Node[T])=>l
+        }
+      }
+      helper(tree,node,List())
+    }
+
+
+    def allLeafToLeafPaths[T](tree:Tree[T]):List[List[T]]={
+      val leafNodes:Array[Node[T]] = leafList(tree).toArray
+      val paths:List[List[T]] = {for{
+        x<-0 until (leafNodes.length-1)
+        y<-x+1 until (leafNodes.length-1)
+        path1:List[T] = rootToLeafPath(tree,leafNodes(x))
+        path2:List[T] = rootToLeafPath(tree,leafNodes(y))
+        intersect = path1.intersect(path2)
+        path = ((LCA(tree,leafNodes(x),leafNodes(y)),End,End)::path1.filter(x=>intersect.exists(_==x))).reverse:::path2.filter(x=>intersect.exists(_==x))
+      }yield path2}.toList
+      paths
     }
   }

@@ -14,7 +14,6 @@ class OperatorSearch {
   def covertOperatorListToString(operatorList: List[String],l:List[Int],str:String):String={
     (l,operatorList) match{
       case (x::Nil,Nil)=>str+x
-      //case (x::xs,y::Nil)=>  str+x+y
       case (x::xs,y::ys)=>covertOperatorListToString(ys,xs,str+x+y)
     }
   }

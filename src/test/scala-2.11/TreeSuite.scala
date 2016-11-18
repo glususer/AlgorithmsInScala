@@ -16,6 +16,7 @@ class TreeSuite extends FunSuite {
   //print (Tree.symmetricBalancedTrees(5, "x"))
 
   val t1 = new Node("c", new Node("c", End, new Node("c",End,End)), new Node("c",new Node("c",End,End),End))
+  val t2 =  Node('a', Node('b',Node('f'),Node('r')), Node('c', Node('d'), Node('e',Node('l',End,End),End)))
 // println(Tree.levelOrder(Node('a', Node('b',Node('f'),Node('r')), Node('c', Node('d'), Node('e',Node('l',End,End),End)))))
  // println(BTree.nodesInSubtree(t1))
  /* val x = List(List(1,2,3),List(4,5,6),List(7,8,9))
@@ -58,7 +59,9 @@ class TreeSuite extends FunSuite {
 
 //  println(Tree.arrayToHeightBalTree(Array(1,3,5)))
 
-  println(Tree.rightViewOfBinaryTree(Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))))
+  //println(Tree.rightViewOfBinaryTree(Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))))
+
+  val leafToLeafPaths = Tree.allLeafToLeafPaths(t2)
 
 }
 
