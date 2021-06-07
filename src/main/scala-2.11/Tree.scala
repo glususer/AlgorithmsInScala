@@ -446,7 +446,7 @@
         path1:List[T] = rootToLeafPath(tree,leafNodes(x))
         path2:List[T] = rootToLeafPath(tree,leafNodes(y))
         intersect = path1.intersect(path2)
-        path = ((LCA(tree,leafNodes(x),leafNodes(y)),End,End)::path1.filter(x=>intersect.exists(_==x))).reverse:::path2.filter(x=>intersect.exists(_==x))
+        path = ((LCA(tree,leafNodes(x),leafNodes(y)),End,End)::path1.filter(x=>intersect.contains(x))).reverse:::path2.filter(x=>intersect.contains(x))
       }yield path2}.toList
       paths
     }

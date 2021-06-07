@@ -199,18 +199,18 @@ object Arrays {
    val y = for{
       i<- 0 to l.length
     }yield combination(i,l)
-    y.flatMap(x=>x).toList
+    y.flatten.toList
   }
 
   def permutations(l:List[Int]):List[List[Int]]={
     def helper(k:Int,z:List[Int]):List[List[Int]]= {
       l match {
         case (x :: xs) => {
-          if (k == 1) List(z(0)) :: Nil
-          else if (k == 2) List(z(0), z(1)) :: List(z(1), z(0)) :: Nil
+          if (k == 1) List(z.head) :: Nil
+          else if (k == 2) List(z.head, z(1)) :: List(z(1), z.head) :: Nil
           else {
            val y =  for {
-              i <- 0 until z.length
+              i <- z.indices
               x = helper(k - 1, z.filter(_ != z(i))).map(z(i)::_)
             } yield x
             y.flatten(x=>x).toList
