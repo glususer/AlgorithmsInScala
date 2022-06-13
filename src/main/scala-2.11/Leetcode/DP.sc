@@ -526,7 +526,7 @@ def change(amount: Int, coins: Array[Int]): Int = {
       }
       arr(i)(j) = arr(i - 1)(j) + prev
     }
-    //  arr.foreach(a => println(a.toList))
+      arr.foreach(a => println(a.toList))
 
     arr(row)(amount)
   }

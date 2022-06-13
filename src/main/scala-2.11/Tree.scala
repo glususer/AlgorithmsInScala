@@ -176,7 +176,7 @@
         case (left: Node[T], End) => false
         case (End, End) => true
         case (left: Node[T], right: Node[T]) => {
-          if (isMirrorOf(left.right, right.left) && (isMirrorOf(left.left, right.right))) true
+          if (left.value == right.value && isMirrorOf(left.right, right.left) && (isMirrorOf(left.left, right.right))) true
           else false
         }
       }

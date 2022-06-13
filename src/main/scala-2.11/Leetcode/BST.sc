@@ -17,7 +17,7 @@ def bstFromPreorder(preorder: Array[Int]): TreeNode = {
   preorder.length match{
     case 0=> null
     case 1 => TreeNode(preorder.head, null,null)
-    case _ =>  val node = preorder.head
+    case _ =>  val node = binarypreorder.head
       val (left, right) = preorder.tail.partition(_ < node)
       TreeNode(node, bstFromPreorder(left), bstFromPreorder(right))
   }

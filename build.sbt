@@ -13,5 +13,7 @@ libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0-M2"
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
-  "org.apache.spark" %% "spark-sql" % sparkVersion
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+  "org.apache.spark" %% "spark-mllib" % sparkVersion,
+  "com.typesafe.akka" %% "akka-actor" % "2.3.16"
 )

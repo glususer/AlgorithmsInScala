@@ -21,6 +21,7 @@
         </array>
       </option>
       <option name="WRAP_BEFORE_WITH_KEYWORD" value="true" />
+      <option name="USE_SCALADOC2_FORMATTING" value="true" />
     </ScalaCodeStyleSettings>
     <editorconfig>
       <option name="ENABLED" value="false" />
