@@ -1,10 +1,10 @@
 package sparkExamples
 
-import org.apache.spark.sql.SparkSession
+//import org.apache.spark.sql.SparkSession
 
 object SparkSql_2 {
   def main(args: Array[String]): Unit = {
-    val spark: SparkSession = SparkSession.builder.master("local").getOrCreate
+   /* val spark: SparkSession = SparkSession.builder.master("local").getOrCreate
    /* val salesDF = spark.read.option("header",true).csv("/Users/shivangi/algo/AlgorithmsInScala/src/main/resources/Sales.csv")
     val productsDF = spark.read.option("header",true).csv("/Users/shivangi/algo/AlgorithmsInScala/src/main/resources/Products.csv")
     val sellersDF = spark.read.option("header",true).csv("/Users/shivangi/algo/AlgorithmsInScala/src/main/resources/Sellers.csv")*/
@@ -52,7 +52,7 @@ object SparkSql_2 {
       ???
     }
 
-  //  val x  = spark.sparkContext.parallelize(l.map(x => (x,1))).aggregateByKey(List[Int]())(seqOp, combOp)
+  //  val x  = spark.sparkContext.parallelize(l.map(x => (x,1))).aggregateByKey(List[Int]())(seqOp, combOp)*/
 
 
   }

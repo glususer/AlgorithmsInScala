@@ -5,5 +5,4 @@ def trap(A: Array[Int]): Int  = {
   println(s"maxRight ${maxRight.toList}")*/
   A.zip(maxleft zip(maxRight)).map{case (height, (maxL, maxR)) => (maxL min maxR) - height}.sum
 }
-
 trap(Array(1,2))
